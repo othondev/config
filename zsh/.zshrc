@@ -2,13 +2,13 @@
 #                                                                Instalations
 #
 ################################################################################
-ZSH_ROOT_PATH=$XDG_CONFIG_HOME/zsh
-PLUGIN_MANAGER_PATH=$ZSH_ROOT_PATH/antigen
+
+PLUGIN_MANAGER_PATH=${ZDOTDIR:-$HOME}/.antigen
 
 if [ ! -d "$PLUGIN_MANAGER_PATH" ]
 then
 	echo "Downloading the Plugin Manager"
-	git clone https://github.com/zsh-users/antigen.git
+	git clone https://github.com/zsh-users/antigen.git $PLUGIN_MANAGER_PATH
 fi
 source $PLUGIN_MANAGER_PATH/antigen.zsh
 
@@ -27,7 +27,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle command-not-found
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen theme robbyrussell
+antigen theme random
 antigen apply
 
 ################################################################################
@@ -35,15 +35,6 @@ antigen apply
 #                                                               Configuration
 #
 ################################################################################
-export PATH=~/.local/bin:$PATH
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-export ZSH=$HOME/.zsh/plugins/oh-my-zsh
-export HISTFILE=~/.zsh_history
-export HISTSIZE=10000
-export SAVEHIST=10000
-export VISUAL=nvim
-export EDITOR=$VISUAL
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
@@ -60,10 +51,7 @@ bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
 ################################################################################
-#                                                                     Mappings
+#                                                                      Aliases
 #
 ################################################################################
-for a in $ZSH_ROOT_PATH/aliases/*.zsh
-do
-  source $a
-done
+alias gb="git for-each-ref --count=10 --sort=-committerdate refs/heads/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'"
