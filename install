@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+function install {
+  for program in "$@"
+  do
+    if ! [ -x "$(command -v $program)" ]; then
+      echo "Installing $program"
+      [ -x "$(command -v pacman)" ] && sudo pacman --noconfirm -S $program
+      [ -x "$(command -v apt)" ] && sudo apt install -y $program
+      [ -x "$(command -v yum)" ] && sudo yum install -y $program
+      [ -x "$(command -v brew)" ] && brew install $program
+    fi
+  done
+}
+
+install \
+  autojump \
+  curl \
+  fzf \
+  gawk \
+  git \
+  jq \
+  nvim \
+  ripgrep \
+  tmux \
+  zsh
+
+stow --target=$HOME --restow */
