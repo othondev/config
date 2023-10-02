@@ -20,6 +20,14 @@ return require('packer').startup(function(use)
     requires = { {'nvim-lua/plenary.nvim'} }
   }
   use {'neoclide/coc.nvim', branch = 'release'}
+  use 'lewis6991/gitsigns.nvim'
+  use {
+  "folke/which-key.nvim",
+  config = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 300
+  end
+}
 
   if packer_bootstrap then
     require('packer').sync()
