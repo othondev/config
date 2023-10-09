@@ -1,35 +1,23 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+local packer = require('packer')
+
+local function setup_plugins()
+  packer.startup(function(use)
+    use 'wbthomason/packer.nvim'
+
+    -- Load plugins from individual files
+    local plugin_files = vim.fn.globpath(vim.fn.stdpath('config') .. '/lua/othondev/plugins', '*.lua', false, true)
+
+    for _, plugin_file in ipairs(plugin_files) do
+      if plugin_file ~= vim.fn.stdpath('config') .. '/lua/othondev/plugins/init.lua' then
+        use(require('othondev.plugins.' .. vim.fn.fnamemodify(plugin_file, ':t:r')))
+      end
+    end
+  end)
+
+  -- Load Packer.nvim plugins
+  packer.compile()
 end
 
-local packer_bootstrap = ensure_packer()
+-- Call the setup_plugins function to install and load plugins
+setup_plugins()
 
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-
-  use 'tpope/vim-fugitive'
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.3',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use {'neoclide/coc.nvim', branch = 'release'}
-  use 'lewis6991/gitsigns.nvim'
-  use {
-  "folke/which-key.nvim",
-  config = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-  end
-}
-
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
