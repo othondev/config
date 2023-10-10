@@ -12,7 +12,3 @@ map('i', 'jk', '<Esc>k', {})
 map('i', 'jj', '<Esc>j', {})
 map('i', 'kk', '<Esc>k', {})
 map('n', '<Esc>', '<Esc>:nohl<CR>', {})
-
-                             -- Navegation code --
-map("n", "[g", "<Plug>(coc-diagnostic-prev)", {silent = true})
-map("n", "]g", "<Plug>(coc-diagnostic-next)", {silent = true})
