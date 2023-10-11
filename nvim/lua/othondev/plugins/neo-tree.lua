@@ -285,6 +285,7 @@ window = {
       })
 
       vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+      vim.api.nvim_set_keymap('n', '<leader>fe', ':Neotree filesystem reveal float<CR>', { noremap = true, silent = true })
     end
   }
 
