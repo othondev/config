@@ -28,3 +28,4 @@ install \
 stow --target=$HOME --restow zsh
 stow --target=$HOME --restow tmux
 stow --target=$HOME/.config/nvim --restow nvim
+stow --target=$HOME/.config/i3 --restow i3
