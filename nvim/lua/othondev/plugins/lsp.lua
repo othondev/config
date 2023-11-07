@@ -22,7 +22,13 @@ return {
     -- Interface support
     {'nvim-treesitter/nvim-treesitter'},
     {'nvim-treesitter/playground'},
-    {'nvim-treesitter/nvim-treesitter-context'}
+    {'nvim-treesitter/nvim-treesitter-context'},
+
+    -- AI support
+    {'jackMort/ChatGPT.nvim'},
+    {'MunifTanjim/nui.nvim'},
+    {'nvim-lua/plenary.nvim'},
+    {'nvim-telescope/telescope.nvim'},
   },
   config = function()
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
@@ -87,6 +93,12 @@ return {
     vim.diagnostic.config({
       virtual_text = true
     })
+
+    -- AI mapping
+    require("chatgpt").setup({})
+    vim.keymap.set('n', '<Leader>tk', '<cmd>:ChatGPT<cr>')
+    vim.keymap.set('n', '<Leader>tj', '<cmd>:ChatGPTActAs<cr>')
+    vim.keymap.set('n', '<Leader>tt', '<cmd>:ChatGPTEditWithInstructions<cr>')
 
   end
 }
